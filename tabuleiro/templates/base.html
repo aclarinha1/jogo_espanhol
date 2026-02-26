@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="{% static 'tabuleiro/css/style.css' %}">
+    <title>RETALIA</title>
+</head>
+<body>
+    <!-- player de música global -->
+    <audio id="bg-music" autoplay loop>
+        <source src="{% static 'musicas/audioHome.mp3' %}" type="audio/mpeg">
+    </audio>
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

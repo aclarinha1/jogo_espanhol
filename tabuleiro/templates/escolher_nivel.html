@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main>
+    <header>
+
+<h1 id="escolher-nivel">RETALIA</h1>
+<div class="btns-som">
+<p class="p-som"><strong>Som:</strong></p>
+<button id="play-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
+</svg></button>
+<button id="pause-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-circle-fill" viewBox="0 0 16 16">
+  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.25 5C5.56 5 5 5.56 5 6.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C7.5 5.56 6.94 5 6.25 5m3.5 0c-.69 0-1.25.56-1.25 1.25v3.5a1.25 1.25 0 1 0 2.5 0v-3.5C11 5.56 10.44 5 9.75 5"/>
+</svg></button>
+</div>
+<script>
+  const music = document.getElementById('bg-music');
+  const playBtn = document.getElementById('play-btn');
+  const pauseBtn = document.getElementById('pause-btn');
+
+  playBtn.addEventListener('click', () => {
+    music.play();
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    music.pause();
+  });
+
+</script>
+
+    </header>
+    <body>
+        <div class="container-inicial-geral">
+            <div class="container-inicial">
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h2>Un desafío competitivo para demostrar tu dominio del español.</h2>
+                </div>
+
+                <div class="container-instrucoes">
+                    <h2>Instrucciones generales</h2>
+                    <br>
+                        <p>Dos jugadores compiten entre sí.</p>
+                        <p>Cada acierto y error suman o restan puntos.</p>
+                        <p>Cada nivel otorga puntos de manera diferente.</p>
+                        <p>En cada nivel el tiempo de respuesta disminuye.</p>
+                        <p>En caso de empate, se activa el modo Muerte 
+                        <p>Súbita, donde el tiempo es menor.</p>
+                </div>
+                
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                    <div class="nome-nivel">
+                        
+                        <div class="nome1">
+                            <label><strong>Nombre del jugador 1:</strong></label>
+                            <br>
+                            <input type="text" name="nome_j1" required>
+                        </div>
+                        <div class="nome2">
+                            <label><strong>Nombre del jugador 2:</strong></label>
+                            <br>
+                            <input type="text" name="nome_j2" required>
+                        </div>
+                        
+                        <div class="nivel"> 
+                            <label class="label"><strong>ㅤNivel:ㅤ</strong></label>
+                            <br>
+                            <select name="nivel">
+                                <option value="F">Fácil</option>
+                                <option value="M">Medio</option>
+                                <option value="D">Difícil</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <br>
+            <div class="area-continuar" id="inicio">
+                    <button type="submit" class="btn-continuar">Continuar</button>
+            </div>
+            </form>
+        </div>
+    </body>
+    <footer>
+        <p>© Desarrollado por M.C, J.R y Y.B – Proyecto Escolar 2026</p>
+    </footer>
+</main>
+    {% endblock %}
+</html>

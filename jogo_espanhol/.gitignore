@@ -1,0 +1,60 @@
+# =========================
+# PYTHON
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.pyo
+
+# =========================
+# VIRTUAL ENV
+# =========================
+venv/
+env/
+.venv/
+
+# =========================
+# DJANGO
+# =========================
+
+# Banco local
+db.sqlite3
+db.sqlite3-journal
+
+# Arquivos estáticos coletados
+staticfiles/
+
+# Uploads
+media/
+
+# =========================
+# VARIÁVEIS DE AMBIENTE
+# =========================
+.env
+.env.*
+
+# =========================
+# LOGS
+# =========================
+*.log
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# SISTEMA
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# TESTES
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/

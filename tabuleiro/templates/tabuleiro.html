@@ -1,0 +1,258 @@
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'tabuleiro/css/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RETALIA</title>
+</head>
+
+<body>
+    <audio id="sound-correct">
+  <source src="{% static 'musicas/audioAcerto.mp3' %}" type="audio/mpeg">
+</audio>
+<audio id="sound-temp">
+  <source src="{% static 'musicas/audioTempo.mp3' %}" type="audio/mpeg">
+</audio>
+<audio id="sound-wrong">
+  <source src="{% static 'musicas/audioErro.mp3' %}" type="audio/mpeg">
+</audio>
+<audio id="sound-fim">
+  <source src="{% static 'musicas/audioFim.mp3' %}" type="audio/mpeg">
+</audio>
+<audio id="sound-round">
+  <source src="{% static 'musicas/audioRodada.mp3' %}" type="audio/mpeg">
+</audio>
+<script>
+const soundCorrect = document.getElementById('sound-correct');
+const soundWrong = document.getElementById('sound-wrong');
+const soundTemp = document.getElementById('sound-temp');
+const soundFim = document.getElementById('sound-fim');
+const soundRound = document.getElementById('sound-round');
+
+// exemplo: quando o jogador acerta
+function iniciarRodada() {
+  if (soundRound.paused) {   // só toca se estiver parado
+    soundRound.currentTime = 0;
+    soundRound.play();
+  }
+}
+
+function respostaCorreta() {
+  soundRound.pause();
+  soundCorrect.currentTime = 0;
+  soundCorrect.play();
+  soundCorrect.onended = () => {
+    if (!fimDeJogo) soundRound.play(); // só volta se não acabou o jogo
+  };
+}
+
+function respostaErrada() {
+  soundRound.pause();
+  soundWrong.currentTime = 0;
+  soundWrong.play();
+  soundWrong.onended = () => {
+    if (!fimDeJogo) soundRound.play();
+  };
+}
+
+function tempoAcabou() {
+  soundRound.pause();
+  soundRound.
+  soundTemp.currentTime = 0;
+  soundTemp.play();
+  soundTemp.onended = () => {
+    if (!fimDeJogo) soundRound.play();
+  };
+}
+
+function FimDeJogo() {
+  fimDeJogo = true; // flag global
+  soundRound.pause();
+  soundFim.currentTime = 0;
+  soundFim.play();
+}
+</script>
+<div class="container">
+
+    <h1>RETALIA</h1>
+    {% if fim_jogo %}
+        <script>FimDeJogo()</script>
+        <div class="fin-juego">
+            ⚔ FIN DEL JUEGO ⚔
+        </div>
+        <div class="status-turno">
+                <h1 class="resultado-final">{{resultado|default:"Sin resultado"}}</h1>
+        </div>
+        <div class="info-box">
+            <h2 style="color: #FFE58A;">Puntuación final:</h2>
+            <div class="info-final">
+                <strong><p class="
+                    {% if pos_jogador1 > pos_jogador2 %}vencedor
+                    {% elif pos_jogador2 > pos_jogador1%}perdedor
+                    {% else}empate
+                    {% endif %}
+                    ">{{nome_j1}}: <br>{{ pos_jogador1 }} puntos</p></strong>
+                <h1>⚔</h1>
+                <strong><p class="
+                    {% if pos_jogador1 > pos_jogador2 %}perdedor
+                    {% elif pos_jogador2 > pos_jogador1%}vencedor
+                    {% else}empate
+                    {% endif %}
+                    ">{{nome_j2}}: <br>{{ pos_jogador2 }} puntos</p></strong>
+            </div>
+        </div>
+        <form action="{% url 'escolher_nivel' %}" method="get">
+            <button type="submit" class="btn-nuevo-juego">
+                🎮 Comenzar nuevo juego
+            </button>
+        </form>
+                        
+
+    {% else %}
+
+        {% if morte_subita %}
+            <h2 class="muerte-subita">MUERTE SÚBITA</h2>
+            <style>
+                .info-box {
+                    box-shadow:
+                        inset 0 6px 15px rgba(255, 0, 0, 0.6),
+                        inset 0 -6px 15px rgba(255, 0, 0, 0.6),
+                        0 0 25px #ff0000e5;
+                }
+                .status-turno{
+                    text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+                }
+            </style>
+        {% else %}
+            <h2>{{ descricao.titulo }}</h2>
+        {% endif %}
+
+        <div class="info-box">
+            <div class="status-turno 
+                {% if mostrar_resultado and tipo_resultado == 'erro' %}errou
+                {% elif mostrar_resultado and tipo_resposta == 'acerto'%}
+                acerto
+                {% elif mostrar_resultado and tipo_resultado == 'tempo' %}tempo
+                {% endif %}">
+                
+                {% if mostrar_resultado and tipo_resultado == "tempo" %}
+                    <script>tempoAcabou()</script>
+                    {{nome_atual}} perdió el turno
+                {% elif mostrar_resultado and tipo_resultado == "erro" %}
+                    <script>respostaErrada()</script>
+                    {{nome_atual}} respondió mal
+                {% elif mostrar_resultado and tipo_resultado == "acerto"%}
+                    <script>respostaCorreta()</script>
+                    {{nome_atual}} respondió correctamente
+                {% else %}
+                    Turno de {{nome_atual}}
+                {% endif %}
+            </div>
+            <div class="info-jogo">
+            <p><strong>Ronda: {{ rodada_exibicao }} / {{ max_rodadas }}</strong></p>
+            <p><strong>{{nome_j1}}: {{ pos_jogador1 }} puntos</strong></p>
+            <p><strong>{{nome_j2}}: {{ pos_jogador2 }} puntos</strong></p>
+            </div>
+        </div>
+
+        {% if pergunta.imagem %}
+            <div class="container-imagem">        
+                <img src="{{ pergunta.imagem.url }}" alt="Imagen de la pregunta" width="300">
+            </div>
+        {% endif %}
+
+        {% if pergunta %}
+            <script>iniciarRodada()</script>
+            {% if pergunta and not mostrar_resultado and not fim_jogo %}
+                <div class="timer">
+                    ⏳ Tiempo restante:
+                    <span id="timer">{{ request.session.tempo_pergunta }}</span> s
+                </div>
+            {% endif %}
+
+            <h3><strong>{{ pergunta.texto }}</strong></h3>
+            <div class="area-acoes">
+                <form method="post" id="form-resposta">
+                    {% csrf_token %}
+                    <button type="submit" name="resposta" value="A"
+                        {% if mostrar_resultado %}disabled{% endif %}
+                        class="{% if mostrar_resultado %}
+                            {% if pergunta.resposta_correta == 'A' %}acerto
+                            {% elif resposta_usuario == 'A' %}erro
+                            {% else %}normal-btn{% endif %}
+                        {% else %}normal-btn{% endif %}">
+                        <strong>A) {{ pergunta.opcao_a }}</strong>
+                    </button>
+
+                    <button type="submit" name="resposta" value="B"
+                        {% if mostrar_resultado %}disabled{% endif %}
+                        class="{% if mostrar_resultado %}
+                            {% if pergunta.resposta_correta == 'B' %}acerto
+                            {% elif resposta_usuario == 'B' %}erro
+                            {% else %}normal-btn{% endif %}
+                        {% else %}normal-btn{% endif %}">
+                        <strong>B) {{ pergunta.opcao_b }}</strong>
+                    </button>
+
+                    <button type="submit" name="resposta" value="C"
+                        {% if mostrar_resultado %}disabled{% endif %}
+                        class="{% if mostrar_resultado %}
+                            {% if pergunta.resposta_correta == 'C' %}acerto
+                            {% elif resposta_usuario == 'C' %}erro
+                            {% else %}normal-btn{% endif %}
+                        {% else %}normal-btn{% endif %}">
+                        <strong>C) {{ pergunta.opcao_c }}</strong>
+                    </button>
+
+                    <button type="submit" name="resposta" value="D"
+                        {% if mostrar_resultado %}disabled{% endif %}
+                        class="{% if mostrar_resultado %}
+                            {% if pergunta.resposta_correta == 'D' %}acerto
+                            {% elif resposta_usuario == 'D' %}erro
+                            {% else %}normal-btn{% endif %}
+                        {% else %}normal-btn{% endif %}">
+                        <strong>D) {{ pergunta.opcao_d }}</strong>
+                    </button>
+                </form>
+
+                <div class="area-continuar">
+                    {% if mostrar_resultado and not fim_jogo %}
+                        <form action="{% url 'escolher_nivel' %}" method="get">
+                            <button type="submit" class="btn-nuevo-juego">
+                                🎮 Comenzar nuevo juego
+                            </button>
+                        </form>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="continuar" class="btn-continuar">
+                                ⚔ Continuar
+                            </button>
+                        </form> 
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <br>
+
+</div>
+
+{% if pergunta and not mostrar_resultado and not fim_jogo %}
+<script>
+    let tempo = {{ request.session.tempo_pergunta }};
+    let contador = setInterval(function() {
+        tempo--;
+        document.getElementById("timer").innerText = tempo;
+        if (tempo <= 0) {
+            clearInterval(contador);
+            document.getElementById("form-resposta").submit();
+        }
+    }, 1000);
+</script>
+{% endif %}
+
+</body>
+</html>
