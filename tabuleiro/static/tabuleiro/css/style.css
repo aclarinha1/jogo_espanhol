@@ -1,15 +1,17 @@
 body {
-            font-family: Arial, sans-serif;
-            background: radial-gradient(circle at center, #001682 0%, #030834 70%);
-            color: #ffffff;
-            margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden; /* garante zero scroll */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            text-align: center;
-        }
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #001682 0%, #030834 70%);
+    color: #ffffff;
+    margin: 0;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-x: hidden;
+}
 
         .container {
             width: 100%;
@@ -383,33 +385,36 @@ body {
         color: #000000;
         }
 
-        footer{
-            position: sticky;   /* fixa na tela */
-            bottom: 0;         /* cola no rodapé */
-            left: 0;
-            width: 100%;       /* ocupa toda a largura */
+        footer {
+            width: 100%;
             background-color: #0a0a2a;
             color: #fff;
             text-align: center;
             padding: 10px;
             box-shadow: 0 -2px 10px #00a2ff;
+
+            margin-top: auto;
         }
-        header{
-            position: sticky;   /* fixa na tela */
-            top: 0;         /* cola no rodapé */
-            left: 0;
-            width: 100%;       /* ocupa toda a largura */
-            color: #fff;
+                
+        header {
+            width: 100%;
             background-color: #0a0a2a;
-            text-align: center;
-            padding: 10px;
-            padding-left: 290px;
-            box-shadow: 0 2px 10px #00a2ff;
+            color: #fff;
+
             display: flex;
             justify-content: space-evenly;
-            gap: 80px;
+            align-items: center;
+            gap: 40px;
+
+            padding: 10px 20px;
+
+            box-shadow: 0 2px 10px #00a2ff;
+
+            position: sticky;
+            top: 0;
             z-index: 1000;
         }
+
         #instruciones.container-inicial{
             gap: 100px;
         }
