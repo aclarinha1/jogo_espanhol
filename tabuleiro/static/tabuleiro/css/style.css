@@ -3,8 +3,8 @@ body {
             background: radial-gradient(circle at center, #001682 0%, #030834 70%);
             color: #ffffff;
             margin: 0;
-            height: 100vh;
-            overflow: hidden; /* garante zero scroll */
+            min-height: 100vh;
+            overflow-x: hidden; /* garante zero scroll */
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -274,17 +274,54 @@ body {
             color: #00a2ff;
         }
 
-        /* 📱 Ajuste extra para telas muito baixas */
-        @media (max-height: 700px) {
-            .container {
-                transform: scale(0.92);
+
+        @media (max-width: 768px) {
+
+            .nome-nivel {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .container-instrucoes {
+                width: 100%;
+            }
+
+            header {
+                padding-left: 0;
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            .btns-som {
+                justify-content: center;
+            }
+
+        }
+        @media (max-width: 600px) {
+            .info-final {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .info-jogo {
+                flex-direction: column;
+                gap: 8px;
             }
         }
 
-        @media (max-height: 600px) {
+        @media (max-width: 480px) {
+
             .container {
-                transform: scale(0.85);
+                border-radius: 0;
+                min-height: 100vh;
             }
+
+            .container-inicial-geral {
+                min-height: auto;
+            }
+
         }
 
         .area-acoes {
@@ -347,7 +384,7 @@ body {
         }
 
         footer{
-            position: fixed;   /* fixa na tela */
+            position: sticky;   /* fixa na tela */
             bottom: 0;         /* cola no rodapé */
             left: 0;
             width: 100%;       /* ocupa toda a largura */
@@ -358,7 +395,7 @@ body {
             box-shadow: 0 -2px 10px #00a2ff;
         }
         header{
-            position: fixed;   /* fixa na tela */
+            position: sticky;   /* fixa na tela */
             top: 0;         /* cola no rodapé */
             left: 0;
             width: 100%;       /* ocupa toda a largura */
@@ -371,6 +408,7 @@ body {
             display: flex;
             justify-content: space-evenly;
             gap: 80px;
+            z-index: 1000;
         }
         #instruciones.container-inicial{
             gap: 100px;
