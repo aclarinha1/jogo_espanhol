@@ -16,7 +16,7 @@ body {
         .container {
             width: 100%;
             max-width: 900px;
-            min-height: 95vh;
+            min-height: auto;
             justify-content: space-between;
             gap: 20px;              /* altura fixa */
             display: flex;             /* layout controlado */
@@ -427,3 +427,49 @@ body {
         .bi {
             color: white; /* todos os ícones ficam brancos */
         }
+
+        /* ===== AJUSTES MOBILE REAIS ===== */
+@media (max-width: 768px) {
+
+    /* Header mais compacto */
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 10px;
+    }
+
+    header h1 {
+        font-size: clamp(22px, 6vw, 32px);
+    }
+
+    .btns-som {
+        justify-content: center;
+    }
+
+    /* Remove espaço exagerado */
+    .container,
+    .container-inicial-geral {
+        margin-top: 20px;
+        min-height: auto;
+    }
+
+    /* Inputs empilhados */
+    .nome-nivel {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    .container-instrucoes {
+        width: 100%;
+    }
+
+    /* Placar empilhado */
+    .info-final,
+    .info-jogo {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+}
