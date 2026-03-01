@@ -13,19 +13,21 @@ body {
     overflow-x: hidden;
 }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            min-height: auto;
-            justify-content: space-between;
-            gap: 20px;              /* altura fixa */
-            display: flex;             /* layout controlado */
-            flex-direction: column;
-            background-color: #00219a;
-            padding: clamp(15px, 2vw, 30px);
-            border-radius: 14px;
-            box-shadow: 0 0 25px rgba(92, 138, 255, 0.473);
-        }
+.container {
+    width: 100%;
+    max-width: 900px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    background-color: #00219a;
+    padding: clamp(15px, 2vw, 30px);
+    border-radius: 14px;
+    box-shadow: 0 0 25px rgba(92, 138, 255, 0.473);
+
+    margin: 30px 0;
+}
         .container-inicial{
             justify-content: space-between;
             gap: 40px;              /* altura fixa */
@@ -277,29 +279,45 @@ body {
         }
 
 
-        @media (max-width: 768px) {
+                        /* ===== AJUSTES MOBILE REAIS ===== */
+@media (max-width: 768px) {
 
-            .nome-nivel {
-                flex-direction: column;
-                gap: 20px;
-                align-items: stretch;
-            }
+    /* Header mais compacto */
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 10px;
+    }
 
-            .container-instrucoes {
-                width: 100%;
-            }
+    header h1 {
+        font-size: clamp(22px, 6vw, 32px);
+    }
 
-            header {
-                padding-left: 0;
-                gap: 20px;
-                flex-direction: column;
-            }
+    .btns-som {
+        justify-content: center;
+    }
 
-            .btns-som {
-                justify-content: center;
-            }
+    /* Inputs empilhados */
+    .nome-nivel {
+        flex-direction: column;
+        gap: 20px;
+        align-items: stretch;
+    }
 
-        }
+    .container-instrucoes {
+        width: 100%;
+    }
+
+    /* Placar empilhado */
+    .info-final,
+    .info-jogo {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+}
+
         @media (max-width: 600px) {
             .info-final {
                 flex-direction: column;
@@ -338,13 +356,15 @@ body {
             align-items: center;
             justify-content: space-between;
         }
-        .container-inicial-geral{
-            display: flex; 
-            flex-direction: column;
-            gap: 40px;
+        .container-inicial-geral {
             width: 100%;
             max-width: 900px;
-            min-height: 95vh;  
+
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+
+            margin: 30px 0;
         }
         .nome1, .nome2, .label{
             color: #ffffff;
@@ -428,48 +448,3 @@ body {
             color: white; /* todos os ícones ficam brancos */
         }
 
-        /* ===== AJUSTES MOBILE REAIS ===== */
-@media (max-width: 768px) {
-
-    /* Header mais compacto */
-    header {
-        flex-direction: column;
-        gap: 10px;
-        padding: 15px 10px;
-    }
-
-    header h1 {
-        font-size: clamp(22px, 6vw, 32px);
-    }
-
-    .btns-som {
-        justify-content: center;
-    }
-
-    /* Remove espaço exagerado */
-    .container,
-    .container-inicial-geral {
-        margin-top: 20px;
-        min-height: auto;
-    }
-
-    /* Inputs empilhados */
-    .nome-nivel {
-        flex-direction: column;
-        gap: 20px;
-        align-items: stretch;
-    }
-
-    .container-instrucoes {
-        width: 100%;
-    }
-
-    /* Placar empilhado */
-    .info-final,
-    .info-jogo {
-        flex-direction: column;
-        gap: 8px;
-        align-items: center;
-    }
-
-}
